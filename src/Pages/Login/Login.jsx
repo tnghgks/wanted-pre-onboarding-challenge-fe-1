@@ -16,7 +16,10 @@ export default function Login() {
     try {
       const {
         data: { token, message },
-      } = await axiosInstance.post("/users/login", { email, password });
+      } = await axiosInstance.post("/users/login", {
+        email,
+        password,
+      });
 
       alert(message);
 
@@ -26,14 +29,22 @@ export default function Login() {
       }
     } catch (error) {
       console.log(error);
+      alert(error.response.data.details);
     }
   }, []);
+
   return (
     <Container>
       <h2>로그인 페이지</h2>
       <Form onSubmit={handleLogin}>
-        <input type="email" name="email" id="email" />
-        <input type="password" name="password" id="password" />
+        <input type="email" name="email" id="email" required />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          minLength="8"
+          required
+        />
         <button>로그인</button>
       </Form>
       <Link to="/register">회원가입</Link>

@@ -26,6 +26,7 @@ export default function Register() {
       }
     } catch (error) {
       console.log(error);
+      alert(error.response.data.details);
     }
   }, []);
 
@@ -34,8 +35,14 @@ export default function Register() {
       <h2>회원가입 페이지</h2>
       <Link to="/login">로그인으로 돌아가기</Link>
       <Form onSubmit={handleRegister}>
-        <input type="email" name="email" id="email" />
-        <input type="password" name="password" id="password" />
+        <input type="email" name="email" id="email" required />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          minLength="8"
+          required
+        />
         <button>회원가입</button>
       </Form>
     </Container>
