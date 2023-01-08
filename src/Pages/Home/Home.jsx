@@ -23,6 +23,11 @@ export default function Home() {
     getToDoData();
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
 
@@ -40,6 +45,7 @@ export default function Home() {
           <label htmlFor="todoContent">투두 내용:</label>
           <textarea name="todoContent" id="todoContent" />
           <button>투두 생성</button>
+          <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
         </Form>
       </Header>
       <ToDoContainer>
@@ -68,10 +74,15 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   gap: 30px;
+  margin-left: 10px;
   label {
     font-weight: 700;
     font-size: 1.5rem;
   }
+`;
+const LogoutBtn = styled.button`
+  margin-left: auto;
+  margin-right: 10px;
 `;
 const ToDoContainer = styled.div`
   display: flex;
