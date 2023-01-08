@@ -10,11 +10,16 @@ export default function Home() {
 
   const getToDoData = async () => {
     const toDoList = await getToDoList();
-    setToDoList(toDoList);
+    setToDoList(toDoList.reverse());
   };
 
   const handleCreateToDo = async (e) => {
-    createToDo(e);
+    e.preventDefault();
+    const { todoTitle, todoContent } = e.target;
+
+    createToDo(todoTitle.value, todoContent.value);
+    todoTitle.value = "";
+    todoContent.value = "";
     getToDoData();
   };
 
@@ -28,13 +33,15 @@ export default function Home() {
 
   return (
     <Container>
-      <form onSubmit={handleCreateToDo}>
-        <label htmlFor="todoTitle">투두 제목:</label>
-        <input type="text" name="todoTitle" id="todoTitle" />
-        <label htmlFor="todoContent">투두 내용:</label>
-        <input type="text" name="todoContent" id="todoContent" />
-        <button>투두 생성</button>
-      </form>
+      <Header>
+        <Form onSubmit={handleCreateToDo}>
+          <label htmlFor="todoTitle">투두 제목:</label>
+          <input type="text" name="todoTitle" id="todoTitle" />
+          <label htmlFor="todoContent">투두 내용:</label>
+          <textarea name="todoContent" id="todoContent" />
+          <button>투두 생성</button>
+        </Form>
+      </Header>
       <ToDoContainer>
         <ToDoList toDoList={toDoList} />
         <Outlet context={[getToDoData]} />
@@ -44,8 +51,27 @@ export default function Home() {
 }
 
 const Container = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
+`;
+const Header = styled.header`
+  width: 100%;
+  height: 50px;
+  background-color: #c0deff;
+  display: flex;
+  justify-content: center;
+`;
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  label {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
 `;
 const ToDoContainer = styled.div`
   display: flex;

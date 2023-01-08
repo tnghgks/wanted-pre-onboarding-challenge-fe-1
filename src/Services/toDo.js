@@ -41,13 +41,7 @@ export const updateToDo = async (id, updateData) => {
   }
 };
 
-export const createToDo = async (e) => {
-  e.preventDefault();
-  const {
-    todoTitle: { value: title },
-    todoContent: { value: content },
-  } = e.target;
-
+export const createToDo = async (title, content) => {
   try {
     await axiosAuthInstance.post("/todos", {
       title,
