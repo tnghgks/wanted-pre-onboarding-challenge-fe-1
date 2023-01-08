@@ -6,27 +6,30 @@ import { login } from "../../Services/auth";
 export default function Login() {
   const navigate = useNavigate();
 
-  const handleLogin = useCallback(async (e) => {
-    e.preventDefault();
-    const {
-      email: { value: email },
-      password: { value: password },
-    } = e.target;
+  const handleLogin = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const {
+        email: { value: email },
+        password: { value: password },
+      } = e.target;
 
-    try {
-      const { token, message } = await login(email, password);
+      try {
+        const { token, message } = await login(email, password);
 
-      alert(message);
+        alert(message);
 
-      if (token) {
-        localStorage.setItem("token", JSON.stringify(token));
-        navigate("/");
+        if (token) {
+          localStorage.setItem("token", JSON.stringify(token));
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+        alert(error.response.data.details);
       }
-    } catch (error) {
-      console.log(error);
-      alert(error.response.data.details);
-    }
-  }, []);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -34,7 +37,7 @@ export default function Login() {
       localStorage.setItem("token", JSON.stringify(token));
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>
