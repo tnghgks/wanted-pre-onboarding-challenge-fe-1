@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { axiosAuthInstance } from "../Api/api";
 
-export default function ToDoDetail({ DeleteToDo, toDoDetail, setToDoDetail, getToDoList }) {
+export default function ToDoDetail({ toDoDetail, handleDeleteToDo, setToDoDetail, getToDoData }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleModify = () => {
@@ -23,7 +23,7 @@ export default function ToDoDetail({ DeleteToDo, toDoDetail, setToDoDetail, getT
       content: contentValue,
     });
     setToDoDetail(data);
-    getToDoList();
+    getToDoData();
     setIsEditing(false);
   };
 
@@ -41,7 +41,7 @@ export default function ToDoDetail({ DeleteToDo, toDoDetail, setToDoDetail, getT
         !!Object.keys(toDoDetail).length && (
           <>
             <ModifyBtn onClick={handleModify}>수정</ModifyBtn>
-            <DeleteBtn onClick={() => DeleteToDo(toDoDetail.id)}>삭제</DeleteBtn>
+            <DeleteBtn onClick={() => handleDeleteToDo(toDoDetail.id)}>삭제</DeleteBtn>
             <Title>{toDoDetail.title}</Title>
             <Content>{toDoDetail.content}</Content>
           </>

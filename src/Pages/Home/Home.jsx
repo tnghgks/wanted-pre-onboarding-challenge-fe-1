@@ -1,62 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { axiosAuthInstance } from "../../Api/api";
 import ToDoDetail from "../../Components/ToDoDetail";
 import ToDoList from "../../Components/ToDoList";
+import { getToDoList, createToDo, DeleteToDo } from "../../Services/toDo";
 
 export default function Home() {
   const [toDoDetail, setToDoDetail] = useState({});
   const [toDoList, setToDoList] = useState([]);
   const navigate = useNavigate();
 
-  const getToDoList = async () => {
-    try {
-      const {
-        data: { data },
-      } = await axiosAuthInstance.get("/todos");
-
-      setToDoList(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const getToDoData = async () => {
+    const toDoList = await getToDoList();
+    setToDoList(toDoList);
   };
 
-  const createToDo = async (e) => {
-    e.preventDefault();
-    const {
-      todoTitle: { value: title },
-      todoContent: { value: content },
-    } = e.target;
-
-    try {
-      await axiosAuthInstance.post("/todos", {
-        title,
-        content,
-      });
-
-      getToDoList();
-    } catch (error) {
-      console.log(error);
-    }
+  const handleCreateToDo = async (e) => {
+    createToDo(e);
+    getToDoData();
   };
 
-  const DeleteToDo = async (toDoId) => {
-    try {
-      await axiosAuthInstance.delete(`/todos/${toDoId}`);
-
-      getToDoList();
-    } catch (error) {
-      console.log(error);
-    }
+  const handleDeleteToDo = async (toDoId) => {
+    DeleteToDo(toDoId);
+    setToDoDetail("");
+    getToDoData();
   };
 
-  // const ModifyBtn = async (toDoId) => {
-  //   try {
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   const selectToDo = (todo) => {
     setToDoDetail(todo);
   };
@@ -66,12 +35,12 @@ export default function Home() {
 
     if (!token) navigate("/login");
 
-    getToDoList();
+    getToDoData();
   }, []);
 
   return (
     <Container>
-      <form onSubmit={createToDo}>
+      <form onSubmit={handleCreateToDo}>
         <label htmlFor="todoTitle">투두 제목:</label>
         <input type="text" name="todoTitle" id="todoTitle" />
         <label htmlFor="todoContent">투두 내용:</label>
@@ -79,8 +48,8 @@ export default function Home() {
         <button>투두 생성</button>
       </form>
       <ToDoContainer>
-        <ToDoList toDoList={toDoList} DeleteToDo={DeleteToDo} selectToDo={selectToDo} />
-        <ToDoDetail DeleteToDo={DeleteToDo} toDoDetail={toDoDetail} setToDoDetail={setToDoDetail} getToDoList={getToDoList}></ToDoDetail>
+        <ToDoList toDoList={toDoList} handleDeleteToDo={handleDeleteToDo} selectToDo={selectToDo} />
+        <ToDoDetail handleDeleteToDo={handleDeleteToDo} toDoDetail={toDoDetail} setToDoDetail={setToDoDetail} getToDoData={getToDoData}></ToDoDetail>
       </ToDoContainer>
     </Container>
   );
