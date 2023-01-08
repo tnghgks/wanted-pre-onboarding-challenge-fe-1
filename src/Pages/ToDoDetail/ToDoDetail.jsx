@@ -23,6 +23,10 @@ export default function ToDoDetail() {
     setIsEditing(true);
   };
 
+  const cancelModify = () => {
+    setIsEditing(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const {
@@ -51,6 +55,7 @@ export default function ToDoDetail() {
       {isEditing ? (
         <Form onSubmit={handleSubmit}>
           <button>수정완료</button>
+          <button onClick={cancelModify}>수정취소</button>
           <div>
             <label htmlFor="title">제목 :</label>
             <input type="text" defaultValue={toDoDetail.title} name="title" id="title" />
