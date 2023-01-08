@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import ToDoDetail from "../../Components/ToDoDetail";
 import ToDoList from "../../Components/ToDoList";
-import { getToDoList, createToDo, DeleteToDo } from "../../Services/toDo";
+import { getToDoList, createToDo } from "../../Services/toDo";
 
 export default function Home() {
-  const [toDoDetail, setToDoDetail] = useState({});
   const [toDoList, setToDoList] = useState([]);
   const navigate = useNavigate();
 
@@ -20,23 +18,13 @@ export default function Home() {
     getToDoData();
   };
 
-  const handleDeleteToDo = async (toDoId) => {
-    DeleteToDo(toDoId);
-    setToDoDetail("");
-    getToDoData();
-  };
-
-  const selectToDo = (todo) => {
-    setToDoDetail(todo);
-  };
-
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
 
     if (!token) navigate("/login");
 
     getToDoData();
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>
@@ -48,8 +36,8 @@ export default function Home() {
         <button>투두 생성</button>
       </form>
       <ToDoContainer>
-        <ToDoList toDoList={toDoList} handleDeleteToDo={handleDeleteToDo} selectToDo={selectToDo} />
-        <ToDoDetail handleDeleteToDo={handleDeleteToDo} toDoDetail={toDoDetail} setToDoDetail={setToDoDetail} getToDoData={getToDoData}></ToDoDetail>
+        <ToDoList toDoList={toDoList} />
+        <Outlet context={[getToDoData]} />
       </ToDoContainer>
     </Container>
   );
