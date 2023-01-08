@@ -41,23 +41,42 @@ export default function Login() {
 
   return (
     <Container>
-      <h2>로그인 페이지</h2>
-      <Form onSubmit={handleLogin}>
-        <input placeholder="이메일을 입력해주세요." type="email" name="email" id="email" required />
-        <input placeholder="비밀번호를 입력해주세요." type="password" name="password" id="password" minLength="8" required />
-        <button>로그인</button>
-      </Form>
-      <Link to="/register">회원가입</Link>
+      <LoginContainer>
+        <Title>로그인 페이지</Title>
+        <Form onSubmit={handleLogin}>
+          <input placeholder="이메일을 입력해주세요." type="email" name="email" id="email" required />
+          <input placeholder="비밀번호를 입력해주세요." type="password" name="password" id="password" minLength="8" required />
+          <button>로그인</button>
+        </Form>
+        <Link to="/register">회원가입</Link>
+      </LoginContainer>
     </Container>
   );
 }
 
 const Container = styled.section`
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff8e1;
 `;
-
+const LoginContainer = styled.div`
+  background-color: #c0deff;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+`;
+const Title = styled.h2`
+  font-size: 2rem;
+`;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 10px 0px;
+  gap: 10px;
 `;

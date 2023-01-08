@@ -23,7 +23,7 @@ a{
   color:inherit;
 }
 a:hover{
-  color:#C0DEFF;
+  color:#FFE5F1;
 }
 `;
 
