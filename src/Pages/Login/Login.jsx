@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { axiosInstance } from "../../Api/api";
+import { login } from "../../Services/auth";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,12 +14,7 @@ export default function Login() {
     } = e.target;
 
     try {
-      const {
-        data: { token, message },
-      } = await axiosInstance.post("/users/login", {
-        email,
-        password,
-      });
+      const { token, message } = await login(email, password);
 
       alert(message);
 
@@ -33,18 +28,20 @@ export default function Login() {
     }
   }, []);
 
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    if (token) {
+      localStorage.setItem("token", JSON.stringify(token));
+      navigate("/");
+    }
+  }, []);
+
   return (
     <Container>
       <h2>로그인 페이지</h2>
       <Form onSubmit={handleLogin}>
-        <input type="email" name="email" id="email" required />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          minLength="8"
-          required
-        />
+        <input placeholder="이메일을 입력해주세요." type="email" name="email" id="email" required />
+        <input placeholder="비밀번호를 입력해주세요." type="password" name="password" id="password" minLength="8" required />
         <button>로그인</button>
       </Form>
       <Link to="/register">회원가입</Link>
