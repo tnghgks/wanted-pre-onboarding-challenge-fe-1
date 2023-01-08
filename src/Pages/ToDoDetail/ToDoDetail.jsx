@@ -49,19 +49,25 @@ export default function ToDoDetail() {
   return (
     <Container>
       {isEditing ? (
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="title" />
-          <input type="text" defaultValue={toDoDetail.title} name="title" id="title" />
-          <label htmlFor="content" />
-          <input type="text" defaultValue={toDoDetail.content} name="content" id="content" />
+        <Form onSubmit={handleSubmit}>
           <button>수정완료</button>
-        </form>
+          <div>
+            <label htmlFor="title">제목 :</label>
+            <input type="text" defaultValue={toDoDetail.title} name="title" id="title" />
+          </div>
+          <div>
+            <label htmlFor="content">내용 :</label>
+            <textarea defaultValue={toDoDetail.content} name="content" id="content" />
+          </div>
+        </Form>
       ) : (
         !!Object.keys(toDoDetail).length && (
           <>
-            <ModifyBtn onClick={handleModify}>수정</ModifyBtn>
-            <DeleteBtn onClick={() => handleDelete(toDoDetail.id)}>삭제</DeleteBtn>
-            <Title>{toDoDetail.title}</Title>
+            <Header>
+              <Title>{toDoDetail.title}</Title>
+              <ModifyBtn onClick={handleModify}>수정</ModifyBtn>
+              <DeleteBtn onClick={() => handleDelete(toDoDetail.id)}>삭제</DeleteBtn>
+            </Header>
             <Content>{toDoDetail.content}</Content>
           </>
         )
@@ -70,13 +76,49 @@ export default function ToDoDetail() {
   );
 }
 const Container = styled.section`
-  width: 50%;
+  width: 80%;
+  background-color: #fff8e1;
+  padding: 20px;
+`;
+const Header = styled.header`
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  padding: 10px 0px;
+  border-bottom: 3px solid #c0deff;
+`;
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    input {
+      width: 90%;
+    }
+    textarea {
+      width: 90%;
+    }
+  }
 `;
 
-const Title = styled.h3``;
+const Title = styled.h3`
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+`;
 
-const Content = styled.p``;
+const Content = styled.p`
+  margin-top: 20px;
+`;
 
-const ModifyBtn = styled.button``;
+const ModifyBtn = styled.button`
+  width: 50px;
+`;
 
-const DeleteBtn = styled.button``;
+const DeleteBtn = styled.button`
+  width: 50px;
+`;
