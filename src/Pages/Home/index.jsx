@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import ToDoList from "../../Components/ToDoList";
+import ToDoList from "./ToDoList/index";
 import { getToDoList, createToDo } from "../../Services/toDo";
+import { Container, Form, Header, LogoutBtn, ToDoContainer } from "./style";
 
 export default function Home() {
   const [toDoList, setToDoList] = useState([]);
@@ -55,35 +55,3 @@ export default function Home() {
     </Container>
   );
 }
-
-const Container = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-const Header = styled.header`
-  width: 100%;
-  height: 50px;
-  background-color: #c0deff;
-  display: flex;
-  justify-content: center;
-`;
-const Form = styled.form`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  margin-left: 10px;
-  label {
-    font-weight: 700;
-    font-size: 1.5rem;
-  }
-`;
-const LogoutBtn = styled.button`
-  margin-left: auto;
-  margin-right: 10px;
-`;
-const ToDoContainer = styled.div`
-  display: flex;
-`;

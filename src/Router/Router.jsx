@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "../Pages/Home/Home";
-import Login from "../Pages/Login/Login";
-import Register from "../Pages/Register/Register";
-import ToDoDetail from "../Pages/ToDoDetail/ToDoDetail";
+import Home from "../Pages/Home/index";
+import Login from "../Pages/Login/index";
+import Register from "../Pages/Register/index";
+import ToDoDetail from "../Pages/ToDoDetail/index";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 

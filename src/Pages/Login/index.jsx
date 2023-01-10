@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { login } from "../../Services/auth";
+import { Container, Form, LoginContainer, Title } from "./style";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -53,30 +53,3 @@ export default function Login() {
     </Container>
   );
 }
-
-const Container = styled.section`
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: #fff8e1;
-`;
-const LoginContainer = styled.div`
-  background-color: #c0deff;
-  border-radius: 20px;
-  padding: 30px;
-  text-align: center;
-`;
-const Title = styled.h2`
-  font-size: 2rem;
-`;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 10px 0px;
-  gap: 10px;
-`;

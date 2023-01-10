@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useOutletContext, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { getToDoById, updateToDo, DeleteToDo } from "../../Services/toDo";
+import { Container, Content, DeleteBtn, Form, Header, ModifyBtn, Title } from "./style";
 
 export default function ToDoDetail() {
   const [toDoDetail, setToDoDetail] = useState({});
@@ -80,50 +80,3 @@ export default function ToDoDetail() {
     </Container>
   );
 }
-const Container = styled.section`
-  width: 80%;
-  background-color: #fff8e1;
-  padding: 20px;
-`;
-const Header = styled.header`
-  display: flex;
-  width: 100%;
-  gap: 5px;
-  padding: 10px 0px;
-  border-bottom: 3px solid #c0deff;
-`;
-const Form = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  div {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    input {
-      width: 90%;
-    }
-    textarea {
-      width: 90%;
-    }
-  }
-`;
-
-const Title = styled.h3`
-  width: 100%;
-  font-size: 2rem;
-  font-weight: 700;
-`;
-
-const Content = styled.p`
-  margin-top: 20px;
-`;
-
-const ModifyBtn = styled.button`
-  width: 50px;
-`;
-
-const DeleteBtn = styled.button`
-  width: 50px;
-`;
