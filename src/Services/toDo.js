@@ -13,17 +13,11 @@ export const getToDoList = async () => {
   }
 };
 export const getToDoById = async (id) => {
-  try {
-    const {
-      data: { data },
-    } = await axiosAuthInstance.get(`/todos/${id}`);
+  const {
+    data: { data },
+  } = await axiosAuthInstance.get(`/todos/${id}`);
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    alert(error.response.data.details);
-    return false;
-  }
+  return data;
 };
 
 export const updateToDo = async (id, updateData) => {
@@ -53,7 +47,7 @@ export const createToDo = async (title, content) => {
   }
 };
 
-export const DeleteToDo = async (toDoId) => {
+export const deleteToDo = async (toDoId) => {
   try {
     await axiosAuthInstance.delete(`/todos/${toDoId}`);
   } catch (error) {

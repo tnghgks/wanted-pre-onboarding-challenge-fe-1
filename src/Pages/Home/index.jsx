@@ -1,40 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ToDoList from "./ToDoList/index";
 import { getToDoList, createToDo } from "../../Services/toDo";
 import { Container, Form, Header, LogoutBtn, ToDoContainer } from "./style";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export default function Home() {
-  const [toDoList, setToDoList] = useState([]);
+  const queryClient = useQueryClient();
+  const { isLoading, data: toDoList } = useQuery("todos", getToDoList);
+  const createToDoMutate = useMutation(
+    ({ title, content }) => {
+      createToDo(title, content);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("todos");
+      },
+    }
+  );
   const navigate = useNavigate();
-
-  const getToDoData = async () => {
-    const toDoList = await getToDoList();
-    setToDoList(toDoList.reverse());
-  };
 
   const handleCreateToDo = async (e) => {
     e.preventDefault();
     const { todoTitle, todoContent } = e.target;
 
-    createToDo(todoTitle.value, todoContent.value);
+    createToDoMutate.mutate({ title: todoTitle.value, content: todoContent.value });
     todoTitle.value = "";
     todoContent.value = "";
-    getToDoData();
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-
-    if (!token) navigate("/login");
-
-    getToDoData();
-  }, [navigate]);
 
   return (
     <Container>
@@ -49,8 +47,14 @@ export default function Home() {
         </Form>
       </Header>
       <ToDoContainer>
-        <ToDoList toDoList={toDoList} />
-        <Outlet context={[getToDoData]} />
+        {isLoading ? (
+          "Loading"
+        ) : (
+          <>
+            <ToDoList toDoList={toDoList} />
+            <Outlet />
+          </>
+        )}
       </ToDoContainer>
     </Container>
   );

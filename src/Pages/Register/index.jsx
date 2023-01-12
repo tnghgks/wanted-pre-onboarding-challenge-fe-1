@@ -6,29 +6,32 @@ import { Container, Form, RegisterContainer, Title } from "./style";
 export default function Register() {
   const navigate = useNavigate();
 
-  const handleRegister = useCallback(async (e) => {
-    e.preventDefault();
-    const {
-      email: { value: email },
-      password: { value: password },
-    } = e.target;
-
-    try {
+  const handleRegister = useCallback(
+    async (e) => {
+      e.preventDefault();
       const {
-        data: { token, message },
-      } = await axiosInstance.post("/users/create", { email, password });
+        email: { value: email },
+        password: { value: password },
+      } = e.target;
 
-      alert(message);
+      try {
+        const {
+          data: { token, message },
+        } = await axiosInstance.post("/users/create", { email, password });
 
-      if (token) {
-        localStorage.setItem("token", JSON.stringify(token));
-        navigate("/");
+        alert(message);
+
+        if (token) {
+          localStorage.setItem("token", JSON.stringify(token));
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+        alert(error.response.data.details);
       }
-    } catch (error) {
-      console.log(error);
-      alert(error.response.data.details);
-    }
-  }, []);
+    },
+    [navigate]
+  );
 
   return (
     <Container>
