@@ -6,6 +6,8 @@ import Register from "../Pages/Register/index";
 import ToDoDetail from "../Pages/ToDoDetail/index";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import ProtectedRoute from "../Utils/ProtectedRoute";
+import useTokenCheck from "../Hooks/useTokenCheck";
 
 const GlobalStyled = createGlobalStyle`
 ${reset}
@@ -28,13 +30,22 @@ a:hover{
 `;
 
 export default function Router() {
+  const { isToken } = useTokenCheck();
+
   return (
     <BrowserRouter>
       <GlobalStyled />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/*" element={<Home />}>
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute isToken={isToken}>
+              <Home />
+            </ProtectedRoute>
+          }
+        >
           <Route path=":id" element={<ToDoDetail />} />
         </Route>
       </Routes>
