@@ -5,7 +5,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const container = document.getElementById("root");
+
+const root = ReactDOM.createRoot(container as Element);
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
