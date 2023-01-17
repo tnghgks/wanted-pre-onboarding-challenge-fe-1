@@ -1,4 +1,5 @@
-import React, { useCallback } from "react";
+import { AxiosError } from "axios";
+import { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../Api/api";
 import { Container, Form, RegisterContainer, Title } from "./style";
@@ -7,12 +8,15 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleRegister = useCallback(
-    async (e) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const {
-        email: { value: email },
-        password: { value: password },
-      } = e.target;
+
+      const target = e.target as typeof e.target & {
+        email: { value: string };
+        password: { value: string };
+      };
+      const email = target.email.value;
+      const password = target.password.value;
 
       try {
         const {
@@ -22,12 +26,13 @@ export default function Register() {
         alert(message);
 
         if (token) {
-          localStorage.setItem("token", JSON.stringify(token));
+          localStorage.setItem("token", token);
           navigate("/");
         }
       } catch (error) {
-        console.log(error);
-        alert(error.response.data.details);
+        if (error instanceof AxiosError) {
+          console.log(error);
+        }
       }
     },
     [navigate]
@@ -40,7 +45,7 @@ export default function Register() {
         <Link to="/login">로그인으로 돌아가기</Link>
         <Form onSubmit={handleRegister}>
           <input type="email" name="email" id="email" required />
-          <input type="password" name="password" id="password" minLength="8" required />
+          <input type="password" name="password" id="password" minLength={8} required />
           <button>회원가입</button>
         </Form>
       </RegisterContainer>

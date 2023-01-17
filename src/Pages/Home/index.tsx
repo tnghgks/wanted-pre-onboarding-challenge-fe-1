@@ -1,30 +1,28 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ToDoList from "./ToDoList/index";
-import { getToDoList, createToDo } from "../../Services/toDo";
+import { getToDoList } from "../../Services/toDo";
 import { Container, Form, Header, LogoutBtn, ToDoContainer } from "./style";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
+import useCreateToDo from "../../Hooks/Mutation/ToDo/useCreateToDo";
+interface IEventTarget extends EventTarget {
+  todoTitle: HTMLInputElement;
+  todoContent: HTMLInputElement;
+}
 
 export default function Home() {
-  const queryClient = useQueryClient();
   const { isLoading, data: toDoList } = useQuery("todos", getToDoList);
-  const createToDoMutate = useMutation(
-    ({ title, content }) => {
-      createToDo(title, content);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("todos");
-      },
-    }
-  );
+  const { mutate: createToDoMutate } = useCreateToDo();
   const navigate = useNavigate();
 
-  const handleCreateToDo = async (e) => {
+  const handleCreateToDo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { todoTitle, todoContent } = e.target;
 
-    createToDoMutate.mutate({ title: todoTitle.value, content: todoContent.value });
+    const target = e.target as IEventTarget;
+    const todoTitle = target.todoTitle;
+    const todoContent = target.todoContent;
+
+    createToDoMutate({ title: todoTitle.value, content: todoContent.value });
     todoTitle.value = "";
     todoContent.value = "";
   };

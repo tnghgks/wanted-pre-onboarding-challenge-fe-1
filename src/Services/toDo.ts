@@ -1,4 +1,5 @@
 import { axiosAuthInstance } from "../Api/api";
+import { IUpdateData } from "../Types/toDo";
 
 export const getToDoList = async () => {
   try {
@@ -8,11 +9,12 @@ export const getToDoList = async () => {
 
     return data;
   } catch (error) {
-    console.log(error);
-    alert(error.response.data.details);
+    if (error instanceof Error) {
+      console.log(error);
+    }
   }
 };
-export const getToDoById = async (id) => {
+export const getToDoById = async (id: string) => {
   const {
     data: { data },
   } = await axiosAuthInstance.get(`/todos/${id}`);
@@ -20,7 +22,7 @@ export const getToDoById = async (id) => {
   return data;
 };
 
-export const updateToDo = async (id, updateData) => {
+export const updateToDo = async (id: string, updateData: IUpdateData) => {
   try {
     const {
       data: { data },
@@ -30,28 +32,31 @@ export const updateToDo = async (id, updateData) => {
     });
     return data;
   } catch (error) {
-    console.log(error);
-    alert(error.response.data.details);
+    if (error instanceof Error) {
+      console.log(error);
+    }
   }
 };
 
-export const createToDo = async (title, content) => {
+export const createToDo = async (title: string, content: string) => {
   try {
     await axiosAuthInstance.post("/todos", {
       title,
       content,
     });
   } catch (error) {
-    console.log(error);
-    alert(error.response.data.details);
+    if (error instanceof Error) {
+      console.log(error);
+    }
   }
 };
 
-export const deleteToDo = async (toDoId) => {
+export const deleteToDo = async (toDoId: string) => {
   try {
     await axiosAuthInstance.delete(`/todos/${toDoId}`);
   } catch (error) {
-    console.log(error);
-    alert(error.response.data.details);
+    if (error instanceof Error) {
+      console.log(error);
+    }
   }
 };

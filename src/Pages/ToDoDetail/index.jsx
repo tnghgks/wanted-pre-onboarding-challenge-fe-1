@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { getToDoById, updateToDo, deleteToDo } from "../../Services/toDo";
+import { updateToDo, deleteToDo } from "../../Services/toDo";
 import { Container, Content, DeleteBtn, Form, Header, ModifyBtn, Title } from "./style";
+import useGetToDoById from "../../Hooks/Queries/ToDo/useGetToDoById";
 
 export default function ToDoDetail() {
   const { id } = useParams();
@@ -15,13 +16,7 @@ export default function ToDoDetail() {
       queryClient.invalidateQueries("todoDetail");
     },
   };
-  const { isLoading, data: toDoDetail } = useQuery(["todoDetail", id], () => getToDoById(id), {
-    retry: false,
-    onError: () => {
-      alert("해당 ToDo를 찾을 수 없습니다.");
-      navigate("/");
-    },
-  });
+  const { isLoading, data: toDoDetail } = useGetToDoById(id);
 
   const updateMutate = useMutation(({ id, updateData }) => {
     updateToDo(id, updateData);
