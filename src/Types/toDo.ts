@@ -6,6 +6,9 @@ export interface IToDo {
   updatedAt: string;
 }
 
+export interface IAxiosToDo {
+  data: IToDo;
+}
 export interface IToDoList {
   toDoList: IToDo[];
 }

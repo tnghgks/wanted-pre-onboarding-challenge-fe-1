@@ -1,8 +1,7 @@
-const ProtectedRoute = ({ isToken, children }) => {
+const ProtectedRoute = ({ isToken, children }: { isToken: boolean; children: JSX.Element }) => {
   if (!isToken) {
-    console.log("토큰없음 실행");
     window.location.href = "/login";
-    return;
+    return null;
   }
 
   return children;

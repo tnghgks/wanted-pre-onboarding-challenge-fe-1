@@ -1,13 +1,21 @@
 import { AxiosResponse } from "axios";
 import { useQuery } from "react-query";
 import { toDoApi } from "../../../Api/ToDo/toDo";
-import { IToDoList } from "../../../Types/toDo";
+import { IAxiosToDo } from "../../../Types/toDo";
 
 const useGetToDoById = (id: string | undefined) => {
   return useQuery(["todoDetail", id], () => toDoApi.getToDoById(id), {
-    select: (data: AxiosResponse<IToDoList>) => {
-      console.log(data);
-      return data.data;
+    select: ({ data: { data } }: AxiosResponse<IAxiosToDo>) => {
+      if (data && typeof data === "object") {
+        return data;
+      }
+      return {
+        title: "",
+        content: "",
+        id: "",
+        createAt: "",
+        updatedAt: "",
+      };
     },
     retry: false,
     onError: () => {

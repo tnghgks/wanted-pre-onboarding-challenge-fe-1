@@ -8,8 +8,8 @@ import { Container, Form, LoginContainer, Title } from "./style";
 import { ILogin } from "../../Types/auth";
 
 export default function Login() {
-  const [email, emailOnChange] = useInput("", validateEmail);
-  const [password, passwordOnChange] = useInput("", validatePassword);
+  const { value: email, onChange: emailOnChange } = useInput("", validateEmail);
+  const { value: password, onChange: passwordOnChange } = useInput("", validatePassword);
   const navigate = useNavigate();
 
   const handleLogin = useCallback(

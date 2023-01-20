@@ -4,7 +4,7 @@ import { IUpdateData } from "../../Types/toDo";
 export const toDoApi = {
   getToDoList: () => axiosAuthInstance.get("/todos"),
   getToDoById: (id: string | undefined) => axiosAuthInstance.get(`/todos/${id}`),
-  updateToDo: (id: string, updateData: IUpdateData) =>
+  updateToDo: (id: string | undefined, updateData: IUpdateData) =>
     axiosAuthInstance.put(`/todos/${id}`, {
       title: updateData.titleValue,
       content: updateData.contentValue,

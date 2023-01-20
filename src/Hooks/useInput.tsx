@@ -1,12 +1,11 @@
 import { useState } from "react";
 
-export const useInput = (initialValue, validator) => {
+export const useInput = (initialValue: string, validator: (value: string) => boolean) => {
   const [value, setValue] = useState(initialValue);
 
-  const onChange = (event) => {
-    const {
-      target: { value },
-    } = event;
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
     let checkedValue = true;
     if (typeof validator === "function") {
       checkedValue = validator(value);
@@ -16,5 +15,5 @@ export const useInput = (initialValue, validator) => {
     }
   };
 
-  return [value, onChange];
+  return { value, onChange };
 };
