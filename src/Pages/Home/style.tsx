@@ -4,34 +4,22 @@ export const Container = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
+  background-color: red;
 `;
 
 export const Header = styled.header`
   width: 100%;
   height: 50px;
-  background-color: #c0deff;
+  background-color: white;
   display: flex;
   justify-content: center;
-`;
-
-export const Form = styled.form`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  margin-left: 10px;
-  label {
-    font-weight: 700;
-    font-size: 1.5rem;
-  }
-`;
-
-export const LogoutBtn = styled.button`
-  margin-left: auto;
-  margin-right: 10px;
+  position: fixed;
 `;
 
 export const ToDoContainer = styled.div`
+  width: 500px;
+  margin: 0 auto;
   display: flex;
+  background-color: white;
+  margin-top: 100px;
 `;

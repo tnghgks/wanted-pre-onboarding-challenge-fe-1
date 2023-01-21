@@ -2,9 +2,11 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ToDoList from "./ToDoList/index";
 import { getToDoList } from "../../Services/toDo";
-import { Container, Form, Header, LogoutBtn, ToDoContainer } from "./style";
+import { Container, Header, ToDoContainer } from "./style";
 import { useQuery } from "react-query";
 import useCreateToDo from "../../Hooks/Mutation/ToDo/useCreateToDo";
+import ToDoCreator from "./ToDoCreator";
+
 interface IEventTarget extends EventTarget {
   todoTitle: HTMLInputElement;
   todoContent: HTMLInputElement;
@@ -15,7 +17,7 @@ export default function Home() {
   const { mutate: createToDoMutate } = useCreateToDo();
   const navigate = useNavigate();
 
-  const handleCreateToDo = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateToDo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const target = e.target as IEventTarget;
@@ -34,17 +36,10 @@ export default function Home() {
 
   return (
     <Container>
-      <Header>
-        <Form onSubmit={handleCreateToDo}>
-          <label htmlFor="todoTitle">투두 제목:</label>
-          <input type="text" name="todoTitle" id="todoTitle" />
-          <label htmlFor="todoContent">투두 내용:</label>
-          <textarea name="todoContent" id="todoContent" />
-          <button>투두 생성</button>
-          <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
-        </Form>
-      </Header>
       <ToDoContainer>
+        <Header>
+          <ToDoCreator handleCreateToDo={handleCreateToDo} handleLogout={handleLogout} />
+        </Header>
         {isLoading ? (
           "Loading"
         ) : (
