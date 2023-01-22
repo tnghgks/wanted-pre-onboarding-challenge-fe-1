@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, Content, DeleteBtn, Form, Header, ModifyBtn, Title } from "./style";
+import { BtnContainer, Button, Container, Content, Form, Header, Input, Textarea, Title } from "./style";
 import useGetToDoById from "../../Hooks/Queries/ToDo/useGetToDoById";
 import useUpdateToDo from "../../Hooks/Mutation/ToDo/useUpdateToDo";
 import useDeleteToDo from "../../Hooks/Mutation/ToDo/useDeleteToDo";
@@ -44,16 +44,20 @@ export default function ToDoDetail() {
       {toDoDetail ? (
         isEditing ? (
           <Form onSubmit={handleSubmit}>
-            <button>수정완료</button>
-            <button onClick={toggleEditing}>수정취소</button>
-            <div>
-              <label htmlFor="title">제목 :</label>
-              <input type="text" defaultValue={toDoDetail.title} name="title" id="title" />
-            </div>
-            <div>
-              <label htmlFor="content">내용 :</label>
-              <textarea defaultValue={toDoDetail.content} name="content" id="content" />
-            </div>
+            <Header>
+              <label htmlFor="title" className="ir_hidden">
+                제목
+              </label>
+              <Input type="text" defaultValue={toDoDetail.title} name="title" id="title" placeholder="제목" required />
+              <BtnContainer>
+                <Button>수정</Button>
+                <Button onClick={toggleEditing}>취소</Button>
+              </BtnContainer>
+            </Header>
+            <label htmlFor="content" className="ir_hidden">
+              내용
+            </label>
+            <Textarea defaultValue={toDoDetail.content} name="content" id="content" placeholder="내용" />
           </Form>
         ) : isLoading ? (
           "LOADING..."
@@ -62,8 +66,10 @@ export default function ToDoDetail() {
             <>
               <Header>
                 <Title>{toDoDetail.title}</Title>
-                <ModifyBtn onClick={toggleEditing}>수정</ModifyBtn>
-                <DeleteBtn onClick={() => handleDelete(toDoDetail.id)}>삭제</DeleteBtn>
+                <BtnContainer>
+                  <Button onClick={toggleEditing}>수정</Button>
+                  <Button onClick={() => handleDelete(toDoDetail.id)}>삭제</Button>
+                </BtnContainer>
               </Header>
               <Content>{toDoDetail.content}</Content>
             </>

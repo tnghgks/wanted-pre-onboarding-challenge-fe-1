@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Container, Content, Title, ToDoItem } from "./styled";
+import { Container, Title, ToDoItem } from "./styled";
 import { IToDoList } from "../../../Types/toDo";
 
 export default function ToDoList({ toDoList }: IToDoList) {
@@ -9,7 +9,6 @@ export default function ToDoList({ toDoList }: IToDoList) {
         <Link to={`/${toDo.id}`} key={toDo.id}>
           <ToDoItem>
             <Title>{toDo.title}</Title>
-            <Content>{toDo.content}</Content>
           </ToDoItem>
         </Link>
       ))}

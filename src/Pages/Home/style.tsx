@@ -1,25 +1,33 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: red;
-`;
-
-export const Header = styled.header`
-  width: 100%;
-  height: 50px;
-  background-color: white;
+  width: 500px;
   display: flex;
   justify-content: center;
-  position: fixed;
+  gap: 10px;
+  margin: 100px auto;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 20px;
+  border-radius: 20px;
+`;
+export const ToDoContainer = styled.div`
+  flex-grow: 1;
+  flex-basis: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 `;
 
-export const ToDoContainer = styled.div`
-  width: 500px;
-  margin: 0 auto;
-  display: flex;
-  background-color: white;
-  margin-top: 100px;
+export const CreateBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  &:hover {
+    transition: 0.3s;
+    transform: scale(1.2);
+  }
 `;

@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  width: 80%;
+  flex-basis: 70%;
+  flex-grow: 0;
+  overflow: hidden auto;
   background-color: #fff8e1;
   padding: 20px;
 `;
 export const Header = styled.header`
   display: flex;
+  align-items: center;
   width: 100%;
   gap: 5px;
   padding: 10px 0px;
@@ -20,7 +23,6 @@ export const Form = styled.form`
   div {
     display: flex;
     align-items: center;
-    gap: 20px;
     input {
       width: 90%;
     }
@@ -34,16 +36,39 @@ export const Title = styled.h3`
   width: 100%;
   font-size: 2rem;
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const Content = styled.p`
+  width: 100%;
   margin-top: 20px;
+  word-wrap: break-word;
+`;
+export const BtnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
-export const ModifyBtn = styled.button`
-  width: 50px;
+export const Input = styled.input`
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  padding: 5px;
 `;
 
-export const DeleteBtn = styled.button`
+export const Textarea = styled.textarea`
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  font-weight: 700;
+`;
+export const Button = styled.button`
   width: 50px;
 `;

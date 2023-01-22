@@ -24,7 +24,7 @@ export default function Login() {
 
       try {
         const { token, message } = (await login(email, password)) as ILogin;
-        console.log(token);
+
         alert(message);
 
         if (token) {

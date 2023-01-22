@@ -1,4 +1,4 @@
-import { Form, LogoutBtn } from "./style";
+import { Button, Form, Input, Textarea } from "./style";
 
 interface IToDoCreator {
   handleCreateToDo: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -8,12 +8,15 @@ interface IToDoCreator {
 export default function ToDoCreator({ handleCreateToDo, handleLogout }: IToDoCreator) {
   return (
     <Form onSubmit={handleCreateToDo}>
-      <label htmlFor="todoTitle">투두 제목:</label>
-      <input type="text" name="todoTitle" id="todoTitle" />
-      <label htmlFor="todoContent">투두 내용:</label>
-      <textarea name="todoContent" id="todoContent" />
-      <button>투두 생성</button>
-      <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
+      <label htmlFor="todoTitle" className="ir_hidden">
+        투두 제목
+      </label>
+      <Input type="text" name="todoTitle" id="todoTitle" placeholder="제목" required />
+      <label htmlFor="todoContent" className="ir_hidden">
+        투두 내용
+      </label>
+      <Textarea name="todoContent" id="todoContent" placeholder="내용" />
+      <Button>생성</Button>
     </Form>
   );
 }
