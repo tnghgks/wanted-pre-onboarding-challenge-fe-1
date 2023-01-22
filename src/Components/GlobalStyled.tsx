@@ -27,4 +27,12 @@ a{
 a:hover{
   color:#FFE5F1;
 }
+.ir_hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
 `;
