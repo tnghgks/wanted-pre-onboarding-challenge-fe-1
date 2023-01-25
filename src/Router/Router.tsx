@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../Pages/Home/index";
-import Login from "../Pages/Login/index";
-import Register from "../Pages/Register/index";
-import ToDoDetail from "../Pages/ToDoDetail/index";
+import Login from "../Components/Login/index";
+import Register from "../Components/Register/index";
+import ToDoDetail from "../Components/ToDoDetail/index";
 import ProtectedRoute from "../Utils/ProtectedRoute";
 import useTokenCheck from "../Hooks/useTokenCheck";
 import { GlobalStyled } from "../Components/GlobalStyled";
