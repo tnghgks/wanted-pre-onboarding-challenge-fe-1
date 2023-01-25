@@ -3,7 +3,7 @@ import Home from "../Pages/Home/index";
 import Login from "../Components/Login/index";
 import Register from "../Components/Register/index";
 import ToDoDetail from "../Components/ToDoDetail/index";
-import ProtectedRoute from "../Utils/ProtectedRoute";
+import ProtectedRoute from "../Components/HOC/ProtectedRoute";
 import useTokenCheck from "../Hooks/useTokenCheck";
 import { GlobalStyled } from "../Components/GlobalStyled";
 
