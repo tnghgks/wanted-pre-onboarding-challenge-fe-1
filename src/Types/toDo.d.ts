@@ -9,9 +9,7 @@ export interface IToDo {
 export interface IAxiosToDo {
   data: IToDo;
 }
-export interface IToDoList {
-  toDoList: IToDo[];
-}
+
 export interface IUpdateData {
   titleValue: string;
   contentValue: string;
