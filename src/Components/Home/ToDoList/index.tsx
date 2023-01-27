@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { Container, Title, ToDoItem } from "./styled";
-import { IToDoList } from "../../../Types/toDo";
+import { IToDo } from "../../../Types/toDo";
 
-export default function ToDoList({ toDoList }: IToDoList) {
+interface IProps {
+  toDoList: IToDo[] | undefined;
+}
+
+export default function ToDoList({ toDoList }: IProps) {
   return (
     <Container>
       {toDoList?.map((toDo) => (

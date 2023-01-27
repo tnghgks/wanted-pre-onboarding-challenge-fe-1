@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ToDoList from "./ToDoList/index";
-import { getToDoList } from "../../Services/toDo";
 import { Container, CreateBtn, ToDoContainer } from "./style";
-import { useQuery } from "react-query";
 import useCreateToDo from "../../Hooks/Mutation/ToDo/useCreateToDo";
 import ToDoCreator from "./ToDoCreator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import UserController from "./UserController";
+import useGetToDoList from "../../Hooks/Queries/ToDo/useGetToDoList";
 
 interface IEventTarget extends EventTarget {
   todoTitle: HTMLInputElement;
@@ -16,7 +15,7 @@ interface IEventTarget extends EventTarget {
 }
 
 export default function Home() {
-  const { isLoading, data: toDoList } = useQuery("todos", getToDoList);
+  const { isLoading, data: toDoList } = useGetToDoList();
   const [isOpenCreator, setIsOpenCreator] = useState(false);
   const { mutate: createToDoMutate } = useCreateToDo();
   const navigate = useNavigate();
