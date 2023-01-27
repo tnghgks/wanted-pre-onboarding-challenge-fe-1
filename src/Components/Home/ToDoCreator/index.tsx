@@ -1,11 +1,11 @@
 import { Button, Form, Input, Textarea } from "./style";
 
-interface IToDoCreator {
+interface IProps {
   handleCreateToDo: (e: React.FormEvent<HTMLFormElement>) => void;
   handleLogout: () => void;
 }
 
-export default function ToDoCreator({ handleCreateToDo, handleLogout }: IToDoCreator) {
+export default function ToDoCreator({ handleCreateToDo, handleLogout }: IProps) {
   return (
     <Form onSubmit={handleCreateToDo}>
       <label htmlFor="todoTitle" className="ir_hidden">
