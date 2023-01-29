@@ -1,11 +1,30 @@
+import useCreateToDo from "../../../Hooks/Mutation/ToDo/useCreateToDo";
 import { Button, Form, Input, Textarea } from "./style";
 
 interface IProps {
-  handleCreateToDo: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleLogout: () => void;
+  ToggleOpenCreator: () => void;
+}
+interface IEventTarget extends EventTarget {
+  todoTitle: HTMLInputElement;
+  todoContent: HTMLInputElement;
 }
 
-export default function ToDoCreator({ handleCreateToDo, handleLogout }: IProps) {
+export default function ToDoCreator({ ToggleOpenCreator }: IProps) {
+  const { mutate: createToDoMutate } = useCreateToDo();
+
+  const handleCreateToDo = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const target = e.target as IEventTarget;
+    const todoTitle = target.todoTitle;
+    const todoContent = target.todoContent;
+
+    createToDoMutate({ title: todoTitle.value, content: todoContent.value });
+    todoTitle.value = "";
+    todoContent.value = "";
+    ToggleOpenCreator();
+  };
+
   return (
     <Form onSubmit={handleCreateToDo}>
       <label htmlFor="todoTitle" className="ir_hidden">
