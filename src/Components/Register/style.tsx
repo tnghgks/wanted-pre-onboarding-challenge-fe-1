@@ -8,19 +8,21 @@ export const Container = styled.section`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #fff8e1;
 `;
 
 export const RegisterContainer = styled.div`
-  background-color: #c0deff;
+  width: 800px;
   border-radius: 20px;
   padding: 30px;
   text-align: center;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 export const Title = styled.h2`
   font-size: 2rem;
   margin-bottom: 10px;
+  font-weight: 700;
 `;
 
 export const Form = styled.form`
@@ -29,4 +31,12 @@ export const Form = styled.form`
   justify-content: center;
   margin: 10px 0px;
   gap: 10px;
+  input {
+    font-size: 1.3rem;
+    padding: 5px;
+  }
+  button {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
 `;
