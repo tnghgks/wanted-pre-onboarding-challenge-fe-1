@@ -26,7 +26,7 @@ export default function Register() {
     const { email, password, passwordCheck } = data;
 
     if (!(password === passwordCheck)) {
-      return alert("비밀번호가 일치하지 않습니다.");
+      return alert("비밀번호 확인란과 비밀번호가 일치하지 않습니다.");
     }
 
     if (typeof email === "string" && typeof password === "string") {
